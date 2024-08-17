@@ -22,18 +22,18 @@ export default function TodoList() {
     setTodos(() => todos.filter((prevTodos) => prevTodos.id != id));
   };
 
-  let upperCaseAll = () => {
+  let markAsDoneAll = () => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) => {
         return {
           ...todo,
-          task: todo.task.toUpperCase(),
+          isDone: true,
         };
       })
     );
   };
 
-  let markDone = (id) => {
+  let markAsDone = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) => {
         if (todo.id === id) {
@@ -65,17 +65,23 @@ export default function TodoList() {
         {todos.map((todo) => {
           return (
             <li key={todo.id}>
-              <span>{todo.task}</span>
+              <span
+                style={
+                  todo.isDone ? { textDecorationLine: "line-through" } : {}
+                }
+              >
+                {todo.task}
+              </span>
               &nbsp; &nbsp;
               <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-              <button onClick={() => markDone(todo.id)}>markDone</button>
+              <button onClick={() => markAsDone(todo.id)}>markASDone</button>
             </li>
           );
         })}
       </ul>
       <br />
       <br />
-      <button onClick={upperCaseAll}>UpperCase all</button>
+      <button onClick={markAsDoneAll}>Markdone all</button>
     </div>
   );
 }
